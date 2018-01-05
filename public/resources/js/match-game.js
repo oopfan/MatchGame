@@ -7,7 +7,7 @@ var MatchGame = {};
 
 /*
   Generates and returns an array of matching card values.
- */
+*/
 
 MatchGame.generateCardValues = function () {
 
@@ -25,7 +25,7 @@ MatchGame.renderCards = function(cardValues, $game) {
 /*
   Flips over a given card and checks to see if two cards are flipped over.
   Updates styles on flipped cards depending whether they are a match or not.
- */
+*/
 
 MatchGame.flipCard = function($card, $game) {
 
