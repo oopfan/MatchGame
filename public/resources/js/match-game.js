@@ -10,7 +10,18 @@ var MatchGame = {};
 */
 
 MatchGame.generateCardValues = function () {
-
+  var orderedCards = [];
+  for (var i = 1; i <= 8; i++) {
+    orderedCards.push(i);
+    orderedCards.push(i);
+  }
+  var randomCards = [];
+  while (orderedCards.length > 0) {
+    var randomIndex = MatchGame.getRandomInt(0, orderedCards.length);
+    randomCards.push(orderedCards[randomIndex]);
+    orderedCards.splice(randomIndex, 1);
+  }
+  return randomCards;
 };
 
 /*
@@ -30,3 +41,9 @@ MatchGame.renderCards = function(cardValues, $game) {
 MatchGame.flipCard = function($card, $game) {
 
 };
+
+MatchGame.getRandomInt = function(min, max) {
+  min = Math.ceil(min);
+  max = Math.floor(max);
+  return Math.floor(Math.random() * (max - min)) + min; //The maximum is exclusive and the minimum is inclusive
+}
