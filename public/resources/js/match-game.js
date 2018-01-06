@@ -88,18 +88,23 @@ MatchGame.displayFlipped = function($card) {
 */
 
 MatchGame.flipCard = function($card, $game) {
-  // Test if this card is currently hidden
+  // Test if this card is already flipped
   if ($card.data('flipped')) {
-    // No, so then return
+    // Yes, so then return
     return;
   }
 
-  // Show that it is now selected
+  // Prevent more than 2 flipped cards
+  var cardsFlipped = $game.data('flipped');
+  if (cardsFlipped.length >= 2) {
+    return;
+  }
+
+  // Show that this card is now selected
   MatchGame.displaySelected($card);
   $card.data('flipped', true);
 
   // Push this card's value onto the game's list of selected cards
-  var cardsFlipped = $game.data('flipped');
   cardsFlipped.push($card.data('value'));
 
   // Test if we have two selected cards
