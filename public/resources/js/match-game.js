@@ -30,7 +30,22 @@ MatchGame.generateCardValues = function () {
 */
 
 MatchGame.renderCards = function(cardValues, $game) {
-
+  var colors = [
+    'hsl(25, 85%, 65%)',
+    'hsl(55, 85%, 65%)',
+    'hsl(90, 85%, 65%)',
+    'hsl(160, 85%, 65%)',
+    'hsl(220, 85%, 65%)',
+    'hsl(265, 85%, 65%)',
+    'hsl(310, 85%, 65%)',
+    'hsl(360, 85%, 65%)',
+  ];
+  $game = [];
+  for (var i = 0; i < cardValues.length; i++) {
+    $card = $('<span>' + cardValues[i] + '</span>');
+    $card.data('match-game', { index: i, flipped: false, color: colors[cardValues[i] - 1] });
+    $game.push($card);
+  }
 };
 
 /*
