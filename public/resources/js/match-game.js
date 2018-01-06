@@ -6,8 +6,8 @@ var MatchGame = {};
 */
 
 $(document).ready(function() {
-  cardValues = MatchGame.generateCardValues();
-  $game = $('#game');
+  var cardValues = MatchGame.generateCardValues();
+  var $game = $('#game');
   MatchGame.renderCards(cardValues, $game);
 });
 
@@ -46,10 +46,10 @@ MatchGame.renderCards = function(cardValues, $game) {
     'hsl(310, 85%, 65%)',
     'hsl(360, 85%, 65%)',
   ];
-  $row = $('<div class="row">');
+  var $row = $('<div class="row">');
   for (var i = 0; i < cardValues.length; i++) {
     var cardValue = cardValues[i];
-    $card = $('<div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 card">');
+    var $card = $('<div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 card">');
     $card.data('value', cardValue);
     $card.data('color', colors[cardValue - 1]);
     $card.data('flipped', false);
@@ -112,7 +112,7 @@ MatchGame.flipCard = function($card, $game) {
   if (cardsFlipped[0] === cardsFlipped[1]) {
     // Yes they do, change colors to reflect this
     $game.find('.card').map(function() {
-      $thisCard = $(this);
+      var $thisCard = $(this);
       if ($thisCard.data('value') === cardsFlipped[0]) {
         MatchGame.displayFlipped($thisCard);
       }
@@ -129,7 +129,7 @@ MatchGame.flipCard = function($card, $game) {
     $card.data('flipped', false);
     // Loop through cards to find the first selected card and then hide it
     $game.find('.card').map(function() {
-      $thisCard = $(this);
+      var $thisCard = $(this);
       if ($thisCard.data('value') === cardsFlipped[0] && $thisCard.data('flipped')) {
         MatchGame.displayHidden($thisCard);
         $thisCard.data('flipped', false);
