@@ -124,8 +124,6 @@ MatchGameTests.testFlipCard = function(errors) {
       mockSetTimeout.getCalls()[0][0]();
       if ($card0.text() || $card2.text()) {
         errors.push("flipCard: Flipping two different cards should clear their text after .setTimeout().");
-        console.log($card0.text());
-        console.log($card2.text());
       }
       if ($card0.css('background-color') !==  'rgb(32, 64, 86)' || $card2.css('background-color') !== 'rgb(32, 64, 86)') {
         errors.push("flipCard: Flipping two different cards should set their background color back to rgb(32, 64, 86) after .setTimeout().");
