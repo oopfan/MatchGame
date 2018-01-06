@@ -1,3 +1,9 @@
+$(document).ready(function() {
+  cardValues = MatchGame.generateCardValues();
+  $game = $('#game');
+  MatchGame.renderCards(cardValues, $game);
+});
+
 var MatchGame = {};
 
 /*
@@ -40,12 +46,16 @@ MatchGame.renderCards = function(cardValues, $game) {
     'hsl(310, 85%, 65%)',
     'hsl(360, 85%, 65%)',
   ];
-  $game = [];
+  $row = $('<div class="row">');
   for (var i = 0; i < cardValues.length; i++) {
+    $column = $('<div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 card">');
     $card = $('<span>' + cardValues[i] + '</span>');
     $card.data('match-game', { index: i, flipped: false, color: colors[cardValues[i] - 1] });
-    $game.push($card);
+    $column.append($card);
+    $row.append($column);
   }
+  $game.empty();
+  $game.append($row);
 };
 
 /*
