@@ -36,3 +36,7 @@ p {
   font-size: 7em;
   font-weight: 900;
 }
+
+.card:hover {
+  cursor: pointer;
+}
