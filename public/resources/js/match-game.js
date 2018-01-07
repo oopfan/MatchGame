@@ -6,10 +6,34 @@ var MatchGame = {};
 */
 
 $(document).ready(function() {
-  var cardValues = MatchGame.generateCardValues();
-  var $game = $('#game');
-  MatchGame.renderCards(cardValues, $game);
+  MatchGame.newGame();
+  $('#restart-game').click(function() {
+    MatchGame.restartGame();
+  });
+  $('#new-game').click(function() {
+    MatchGame.newGame();
+  });
 });
+
+/*
+  Generates a new game
+*/
+
+MatchGame.newGame = function() {
+  // Remember card values in case they want to restart game
+  MatchGame.cardValues = MatchGame.generateCardValues();
+  var $game = $('#game');
+  MatchGame.renderCards(MatchGame.cardValues, $game);
+}
+
+/*
+  Restarts the current game
+*/
+
+MatchGame.restartGame = function() {
+  var $game = $('#game');
+  MatchGame.renderCards(MatchGame.cardValues, $game);
+}
 
 /*
   Generates and returns an array of matching card values.
@@ -60,10 +84,16 @@ MatchGame.renderCards = function(cardValues, $game) {
   $game.empty();
   $game.append($row);
   $game.data('flipped', []);
+  $game.data('total-flipped', 0);
   $game.find('.card').click(function() {
     MatchGame.flipCard($(this), $game);
   });
 };
+
+/*
+  Set CSS properties of given card for each of three states:
+  hidden, selected, and flipped.
+*/
 
 MatchGame.displayHidden = function($card) {
   $card.find('span').text('');
@@ -116,7 +146,7 @@ MatchGame.flipCard = function($card, $game) {
   // Test if both selected cards have the same value
   if (cardsFlipped[0] === cardsFlipped[1]) {
     // Yes they do, change colors to reflect this
-    $game.find('.card').map(function() {
+    $game.find('.card').each(function() {
       var $thisCard = $(this);
       if ($thisCard.data('value') === cardsFlipped[0]) {
         MatchGame.displayFlipped($thisCard);
@@ -124,6 +154,22 @@ MatchGame.flipCard = function($card, $game) {
     });
     cardsFlipped.pop();
     cardsFlipped.pop();
+
+    // Bump the total number of cards flipped
+    var totalFlipped = $game.data('total-flipped');
+    totalFlipped += 2;
+    $game.data('total-flipped', totalFlipped);
+
+    // Test if all cards flipped
+    if (totalFlipped === 16) {
+      // You are a winner!
+      $('.you-won span').text('You\'re a Winner!');
+      $('.container').css('opacity', '0.1');
+      window.setTimeout(function() {
+        $('.container').css('opacity', '1');
+        $('.you-won span').text('');
+      }, 2000);
+    }
     return;
   }
 
@@ -133,7 +179,7 @@ MatchGame.flipCard = function($card, $game) {
     MatchGame.displayHidden($card);
     $card.data('flipped', false);
     // Loop through cards to find the first selected card and then hide it
-    $game.find('.card').map(function() {
+    $game.find('.card').each(function() {
       var $thisCard = $(this);
       if ($thisCard.data('value') === cardsFlipped[0] && $thisCard.data('flipped')) {
         MatchGame.displayHidden($thisCard);
@@ -144,6 +190,10 @@ MatchGame.flipCard = function($card, $game) {
     cardsFlipped.pop();
   }, 500);
 };
+
+/*
+  Random integers given a range thanks to Mozilla
+*/
 
 MatchGame.getRandomInt = function(min, max) {
   min = Math.ceil(min);
