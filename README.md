@@ -1,4 +1,4 @@
-# ColmarAcademy
+# MatchGame
 Codecademy -- A card-matching game using JavaScript, jQuery, and Bootstrap.
 
 Information for the Code Reviewers:
