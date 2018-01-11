@@ -32,6 +32,10 @@ p {
 .card span {
   font-size: 7em;
   font-weight: 900;
+  user-select: none;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
 }
 
 .card:hover {
